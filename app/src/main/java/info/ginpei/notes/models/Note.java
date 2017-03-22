@@ -14,7 +14,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class Note extends RealmObject {
     @PrimaryKey
-    private long id;
+    private long id = 0;
 
     private Date createdAt;
 
@@ -80,6 +80,11 @@ public class Note extends RealmObject {
         Date now = new Date();
         setUpdatedAt(now);
 
+        if (this.getId() < 1) {
+            long id = findLastId(realm) + 1;
+            setId(id);
+        }
+
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(this);
         realm.commitTransaction();
@@ -95,9 +100,6 @@ public class Note extends RealmObject {
 
     public static Note create(Realm realm) {
         Note note = new Note();
-
-        long id = findLastId(realm) + 1;
-        note.setId(id);
 
         Date now = new Date();
         note.setCreatedAt(now);
