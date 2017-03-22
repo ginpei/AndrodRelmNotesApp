@@ -1,6 +1,7 @@
 package info.ginpei.notes.models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -114,5 +115,10 @@ public class Note extends RealmObject {
         RealmResults<Note> results = realm.where(Note.class).findAllSorted("updatedAt", Sort.DESCENDING);
         notes.clear();
         notes.addAll(results);
+    }
+
+    @Nullable
+    public static Note find(Realm realm, long noteId) {
+        return realm.where(Note.class).equalTo("id", noteId).findFirst();
     }
 }
