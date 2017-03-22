@@ -80,9 +80,12 @@ public class Note extends RealmObject {
         Date now = new Date();
         setUpdatedAt(now);
 
-        if (this.getId() < 1) {
+        boolean isNew = this.getId() < 1;
+        if (isNew) {
             long id = findLastId(realm) + 1;
             setId(id);
+
+            setCreatedAt(now);
         }
 
         realm.beginTransaction();
@@ -100,11 +103,6 @@ public class Note extends RealmObject {
 
     public static Note create(Realm realm) {
         Note note = new Note();
-
-        Date now = new Date();
-        note.setCreatedAt(now);
-        note.setUpdatedAt(now);
-
         return note;
     }
 
