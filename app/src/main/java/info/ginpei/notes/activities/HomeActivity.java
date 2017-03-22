@@ -1,6 +1,7 @@
 package info.ginpei.notes.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -142,7 +143,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void editNote(Note note) {
-        Toast.makeText(this, "edit #" + note.getId(), Toast.LENGTH_SHORT).show();  // TODO
+        Intent intent = new Intent(this, NoteEditActivity.class);
+        intent.putExtra("noteId", note.getId());
+        startActivity(intent);
     }
 
     private void deleteNote(Note note) {
