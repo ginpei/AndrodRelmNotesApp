@@ -93,9 +93,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createNewNote() {
-        Note note = Note.create(realm);
+        Note note = new Note();
         note.setTitle("New note");
         note.save(realm);
+
         reloadNotes();
         notesAdapter.notifyDataSetChanged();
     }

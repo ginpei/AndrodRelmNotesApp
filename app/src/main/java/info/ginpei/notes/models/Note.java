@@ -101,11 +101,6 @@ public class Note extends RealmObject {
         return title;
     }
 
-    public static Note create(Realm realm) {
-        Note note = new Note();
-        return note;
-    }
-
     private static long findLastId(Realm realm) {
         RealmQuery<Note> query = realm.where(Note.class);
         if (query.count() > 0) {
