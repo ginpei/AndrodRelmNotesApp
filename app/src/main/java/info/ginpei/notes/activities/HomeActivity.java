@@ -137,7 +137,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void createNewNote() {
         Note note = new Note();
-        note.setTitle("New note");
+        note.setComment("New note");
         note.save(realm);
 
         reloadNotes();
@@ -166,8 +166,8 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             Note note = notes.get(position);
-            String title = note.getProperTitle();
-            String body = note.getBody();
+            String title = note.getComment();
+            String body = note.getCreatedAt().toString();
 
             View view = super.getView(position, convertView, parent);
             ((TextView) view.findViewById(android.R.id.text1)).setText(title);

@@ -31,7 +31,7 @@ public class NoteEditActivity extends AppCompatActivity {
         note = Note.find(realm, noteId);
 
         vm = new ViewModel();
-        vm.setTitle(note.getTitle());
+        vm.setComment(note.getComment());
 
         ActivityNoteEditBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_note_edit);
         binding.setVm(vm);
@@ -46,21 +46,21 @@ public class NoteEditActivity extends AppCompatActivity {
 
     public class ViewModel extends BaseObservable {
 
-        public String title = "";
+        public String comment = "";
 
         @Bindable
-        public String getTitle() {
-            return title;
+        public String getComment() {
+            return comment;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
-            notifyPropertyChanged(BR.title);
+        public void setComment(String comment) {
+            this.comment = comment;
+            notifyPropertyChanged(BR.comment);
         }
 
-        public void title_textChanged(CharSequence charSequence, int i, int i1, int i2) {
-            String title = charSequence.toString();
-            note.setTitle(realm, title);
+        public void comment_textChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String comment = charSequence.toString();
+            note.setComment(realm, comment);
         }
     }
 }

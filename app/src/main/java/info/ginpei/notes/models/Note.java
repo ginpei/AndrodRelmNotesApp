@@ -22,10 +22,7 @@ public class Note extends RealmObject {
     private Date updatedAt;
 
     @NonNull
-    private String title = "";
-
-    @NonNull
-    private String body = "";
+    private String comment = "";
 
     // vvvvvvvv
 
@@ -58,28 +55,19 @@ public class Note extends RealmObject {
     }
 
     @NonNull
-    public String getTitle() {
-        return title;
+    public String getComment() {
+        return comment;
     }
 
-    public void setTitle(@NonNull String title) {
-        this.title = title;
+    public void setComment(@NonNull String comment) {
+        this.comment = comment;
     }
 
-    public void setTitle(@NonNull Realm realm, @NonNull String title) {
+    public void setComment(@NonNull Realm realm, @NonNull String comment) {
         realm.beginTransaction();
-        setTitle(title);
+        setComment(comment);
         setUpdatedAt();
         realm.commitTransaction();
-    }
-
-    @NonNull
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(@NonNull String body) {
-        this.body = body;
     }
 
     // ^^^^^^^^
@@ -103,14 +91,6 @@ public class Note extends RealmObject {
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(this);
         realm.commitTransaction();
-    }
-
-    public String getProperTitle() {
-        String title = getTitle();
-        if (title.isEmpty()) {
-            title = getBody();
-        }
-        return title;
     }
 
     private static long findLastId(Realm realm) {

@@ -17,8 +17,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onTextChanged="@{vm.title_textChanged}"
-            android:text="@{vm.title}" />
+            android:onTextChanged="@{vm.comment_textChanged}"
+            android:text="@{vm.comment}" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
