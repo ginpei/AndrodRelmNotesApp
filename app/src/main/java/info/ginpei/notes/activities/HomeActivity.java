@@ -138,15 +138,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showNote(Note note) {
-        Toast.makeText(this, "show #" + note.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "show #" + note.getId(), Toast.LENGTH_SHORT).show();  // TODO
     }
 
     private void editNote(Note note) {
-        Toast.makeText(this, "edit #" + note.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "edit #" + note.getId(), Toast.LENGTH_SHORT).show();  // TODO
     }
 
     private void deleteNote(Note note) {
-        Toast.makeText(this, "delete #" + note.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "delete #" + note.getId(), Toast.LENGTH_SHORT).show();  // TODO
     }
 
     class NoteArrayAdapter extends ArrayAdapter<Note> {
