@@ -7,13 +7,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -81,6 +85,32 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, view, menuInfo);
+
+        final int id = view.getId();
+        MenuInflater inflater = getMenuInflater();
+        if (id == R.id.list_notes) {
+            inflater.inflate(R.menu.menu_home_notes, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int position = (int) info.id;
+
+        int id = item.getItemId();
+        if (id == R.id.action_editNote) {
+            editNote(notes.get(position));
+        } else if (id == R.id.action_deleteNote) {
+            deleteNote(notes.get(position));
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
     private void reloadNotes() {
         Note.findAllForList(realm, notes);
     }
@@ -90,6 +120,7 @@ public class HomeActivity extends AppCompatActivity {
 
         notesView = (ListView) findViewById(R.id.list_notes);
         notesView.setAdapter(notesAdapter);
+        registerForContextMenu(notesView);
     }
 
     private void createNewNote() {
@@ -99,6 +130,14 @@ public class HomeActivity extends AppCompatActivity {
 
         reloadNotes();
         notesAdapter.notifyDataSetChanged();
+    }
+
+    private void editNote(Note note) {
+        Toast.makeText(this, "edit #" + note.getId(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void deleteNote(Note note) {
+        Toast.makeText(this, "delete #" + note.getId(), Toast.LENGTH_SHORT).show();
     }
 
     class NoteArrayAdapter extends ArrayAdapter<Note> {
