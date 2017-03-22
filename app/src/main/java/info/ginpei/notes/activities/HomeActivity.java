@@ -40,8 +40,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         realm = Realm.getDefaultInstance();
 
-        reloadNotes();
-
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,6 +53,13 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         initNotesView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        reloadNotes();
     }
 
     @Override
@@ -116,6 +121,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void reloadNotes() {
         Note.findAllForList(realm, notes);
+        notesAdapter.notifyDataSetChanged();
     }
 
     private void initNotesView() {
@@ -135,7 +141,6 @@ public class HomeActivity extends AppCompatActivity {
         note.save(realm);
 
         reloadNotes();
-        notesAdapter.notifyDataSetChanged();
     }
 
     private void showNote(Note note) {

@@ -6,7 +6,6 @@ import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import info.ginpei.notes.BR;
 import info.ginpei.notes.R;
@@ -61,9 +60,7 @@ public class NoteEditActivity extends AppCompatActivity {
 
         public void title_textChanged(CharSequence charSequence, int i, int i1, int i2) {
             String title = charSequence.toString();
-//            note.setTitle(title);
-//            note.save(realm);
-            Log.d(TAG, "title_textChanged: title=" + title);
+            note.setTitle(realm, title);
         }
     }
 }

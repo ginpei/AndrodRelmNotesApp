@@ -53,6 +53,10 @@ public class Note extends RealmObject {
         this.updatedAt = updatedAt;
     }
 
+    public void setUpdatedAt() {
+        setUpdatedAt(new Date());
+    }
+
     @NonNull
     public String getTitle() {
         return title;
@@ -60,6 +64,13 @@ public class Note extends RealmObject {
 
     public void setTitle(@NonNull String title) {
         this.title = title;
+    }
+
+    public void setTitle(@NonNull Realm realm, @NonNull String title) {
+        realm.beginTransaction();
+        setTitle(title);
+        setUpdatedAt();
+        realm.commitTransaction();
     }
 
     @NonNull
