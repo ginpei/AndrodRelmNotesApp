@@ -8,11 +8,18 @@
             type="info.ginpei.notes.activities.NoteEditActivity.ViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/base_margin"
+        android:orientation="vertical"
         tools:context="info.ginpei.notes.activities.NoteEditActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comment" />
 
         <EditText
             android:layout_width="match_parent"
@@ -20,5 +27,5 @@
             android:onTextChanged="@{vm.comment_textChanged}"
             android:text="@{vm.comment}" />
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </layout>
