@@ -80,7 +80,11 @@ public class Note {
     }
 
     public static Note create() {
-        return new Note();
+        Note note = new Note();
+        Date now = new Date();
+        note.setCreatedAt(now);
+        note.setUpdatedAt(now);
+        return note;
     }
 
     public static ArrayList<Note> findAll() {
