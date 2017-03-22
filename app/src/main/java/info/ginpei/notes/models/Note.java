@@ -5,9 +5,14 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
+import io.realm.Sort;
 import io.realm.annotations.PrimaryKey;
 
-public class Note {
+public class Note extends RealmObject {
     @PrimaryKey
     private long id;
 
@@ -71,6 +76,15 @@ public class Note {
     public Note() {
     }
 
+    public void save(Realm realm) {
+        Date now = new Date();
+        setUpdatedAt(now);
+
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(this);
+        realm.commitTransaction();
+    }
+
     public String getProperTitle() {
         String title = getTitle();
         if (title.isEmpty()) {
@@ -79,21 +93,31 @@ public class Note {
         return title;
     }
 
-    public static Note create() {
+    public static Note create(Realm realm) {
         Note note = new Note();
+
+        long id = findLastId(realm) + 1;
+        note.setId(id);
+
         Date now = new Date();
         note.setCreatedAt(now);
         note.setUpdatedAt(now);
+
         return note;
     }
 
-    public static ArrayList<Note> findAll() {
-        ArrayList<Note> notes = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Note note = new Note();
-            note.setBody("Note #" + i);
-            notes.add(note);
+    private static long findLastId(Realm realm) {
+        RealmQuery<Note> query = realm.where(Note.class);
+        if (query.count() > 0) {
+            return query.max("id").longValue();
+        } else {
+            return 0;
         }
-        return notes;
+    }
+
+    public static void findAllForList(Realm realm, ArrayList<Note> notes) {
+        RealmResults<Note> results = realm.where(Note.class).findAllSorted("updatedAt", Sort.DESCENDING);
+        notes.clear();
+        notes.addAll(results);
     }
 }

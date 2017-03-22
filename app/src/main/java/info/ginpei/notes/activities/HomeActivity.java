@@ -26,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
     public static final String TAG = "G#HomeActivity";
 
     private Realm realm;
-    private ArrayList<Note> notes;
+    private final ArrayList<Note> notes = new ArrayList<>();
     private ArrayAdapter<Note> notesAdapter;
     private ListView notesView;
 
@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         realm = Realm.getDefaultInstance();
 
-        notes = Note.findAll();
+        reloadNotes();
 
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,6 +81,10 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void reloadNotes() {
+        Note.findAllForList(realm, notes);
+    }
+
     private void initNotesView() {
         notesAdapter = new NoteArrayAdapter(this, notes);
 
@@ -89,9 +93,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createNewNote() {
-        Note note = Note.create();
+        Note note = Note.create(realm);
         note.setTitle("New note");
-        notes.add(note);
+        note.save(realm);
+        reloadNotes();
         notesAdapter.notifyDataSetChanged();
     }
 
