@@ -102,7 +102,9 @@ public class HomeActivity extends AppCompatActivity {
         final int position = (int) info.id;
 
         int id = item.getItemId();
-        if (id == R.id.action_editNote) {
+        if (id == R.id.action_showNote) {
+            showNote(notes.get(position));
+        } else if (id == R.id.action_editNote) {
             editNote(notes.get(position));
         } else if (id == R.id.action_deleteNote) {
             deleteNote(notes.get(position));
@@ -121,6 +123,9 @@ public class HomeActivity extends AppCompatActivity {
         notesView = (ListView) findViewById(R.id.list_notes);
         notesView.setAdapter(notesAdapter);
         registerForContextMenu(notesView);
+        notesView.setOnItemClickListener((adapterView, view, position, id) -> {
+            showNote(notes.get(position));
+        });
     }
 
     private void createNewNote() {
@@ -130,6 +135,10 @@ public class HomeActivity extends AppCompatActivity {
 
         reloadNotes();
         notesAdapter.notifyDataSetChanged();
+    }
+
+    private void showNote(Note note) {
+        Toast.makeText(this, "show #" + note.getId(), Toast.LENGTH_SHORT).show();
     }
 
     private void editNote(Note note) {
