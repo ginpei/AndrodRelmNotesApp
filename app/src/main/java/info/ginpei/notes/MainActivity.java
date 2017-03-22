@@ -9,11 +9,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG = "G#MainActivity";
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        realm = Realm.getDefaultInstance();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -26,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        realm.close();
     }
 
     @Override
