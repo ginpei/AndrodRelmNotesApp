@@ -1,26 +1,41 @@
 package info.ginpei.notes.activities;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import info.ginpei.notes.R;
+import info.ginpei.notes.models.Note;
 import io.realm.Realm;
 
 public class HomeActivity extends AppCompatActivity {
 
     public static final String TAG = "G#HomeActivity";
+
     private Realm realm;
+    private ArrayList<Note> notes;
+    private ArrayAdapter<Note> notesAdapter;
+    private ListView notesView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         realm = Realm.getDefaultInstance();
+
+        notes = Note.findAll();
 
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -30,10 +45,11 @@ public class HomeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                createNewNote();
             }
         });
+
+        initNotesView();
     }
 
     @Override
@@ -63,5 +79,38 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initNotesView() {
+        notesAdapter = new NoteArrayAdapter(this, notes);
+
+        notesView = (ListView) findViewById(R.id.list_notes);
+        notesView.setAdapter(notesAdapter);
+    }
+
+    private void createNewNote() {
+        Note note = Note.create();
+        note.setTitle("New note");
+        notes.add(note);
+        notesAdapter.notifyDataSetChanged();
+    }
+
+    class NoteArrayAdapter extends ArrayAdapter<Note> {
+        public NoteArrayAdapter(@NonNull Context context, ArrayList<Note> notes) {
+            super(context, android.R.layout.simple_list_item_2, android.R.id.text1, notes);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            Note note = notes.get(position);
+            String title = note.getProperTitle();
+            String body = note.getBody();
+
+            View view = super.getView(position, convertView, parent);
+            ((TextView) view.findViewById(android.R.id.text1)).setText(title);
+            ((TextView) view.findViewById(android.R.id.text2)).setText(body);
+            return view;
+        }
     }
 }
