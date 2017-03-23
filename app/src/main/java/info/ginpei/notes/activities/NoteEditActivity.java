@@ -1,18 +1,28 @@
 package info.ginpei.notes.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import info.ginpei.notes.BR;
 import info.ginpei.notes.R;
@@ -27,6 +37,7 @@ public class NoteEditActivity extends AppCompatActivity {
     private Realm realm;
     private Note note;
     public ViewModel vm;
+    private String photoFileAbsolutePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +111,7 @@ public class NoteEditActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                setPhoto(bitmap);
+                setPhoto();
             }
         }
     }
@@ -109,11 +119,40 @@ public class NoteEditActivity extends AppCompatActivity {
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+            File file = createImageFIle();
+            if (file != null) {
+                photoFileAbsolutePath = file.getAbsolutePath();
+
+                String authority = getPackageName() + ".fileprovider";
+                Uri outputUri = FileProvider.getUriForFile(this, authority, file);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+                startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+            }
         }
     }
 
-    private void setPhoto(Bitmap bitmap) {
+    private File createImageFIle() {
+        String timestamp = getTimestamp();
+        File image = null;
+        try {
+            image = File.createTempFile(
+                    "JPEG_" + timestamp + "_",
+                    ".jpg",
+                    getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            );
+        } catch (IOException ignored) {
+        }
+        return image;
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String getTimestamp() {
+        return new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+    }
+
+    private void setPhoto() {
+        Bitmap bitmap = BitmapFactory.decodeFile(photoFileAbsolutePath);
+
         ImageView imageView = (ImageView) findViewById(R.id.image_pohto);
         imageView.setImageBitmap(bitmap);
     }
