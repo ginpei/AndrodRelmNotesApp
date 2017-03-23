@@ -70,17 +70,6 @@ public class NoteEditActivity extends BaseLocationActivity {
         mapImageView = (GoogleMapImageView) findViewById(R.id.image_map);
     }
 
-    private void restoreNote() {
-        Intent intent = getIntent();
-        long noteId = intent.getLongExtra("noteId", -1);
-        if (noteId < 0) {
-            note = new Note();
-        } else {
-            note = Note.find(realm, noteId);
-
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -131,6 +120,17 @@ public class NoteEditActivity extends BaseLocationActivity {
         super.onLocationChanged(location);
 
         mapImageView.setLocation(this, location);
+    }
+
+    private void restoreNote() {
+        Intent intent = getIntent();
+        long noteId = intent.getLongExtra("noteId", -1);
+        if (noteId < 0) {
+            note = new Note();
+        } else {
+            note = Note.find(realm, noteId);
+
+        }
     }
 
     private void takePhoto() {
