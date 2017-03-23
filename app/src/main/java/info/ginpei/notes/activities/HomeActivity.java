@@ -34,6 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     private final ArrayList<Note> notes = new ArrayList<>();
     private ArrayAdapter<Note> notesAdapter;
     private ListView notesView;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        textView = (TextView) findViewById(R.id.text_emptyNoteList);
         initNotesView();
     }
 
@@ -121,7 +123,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private void reloadNotes() {
         Note.findAllForList(realm, notes);
+        toggleEmptyMessage();
         notesAdapter.notifyDataSetChanged();
+    }
+
+    private void toggleEmptyMessage() {
+        textView.setVisibility(notes.size() > 0 ? View.GONE : View.VISIBLE);
     }
 
     private void initNotesView() {
