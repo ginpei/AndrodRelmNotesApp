@@ -1,11 +1,15 @@
 package info.ginpei.notes.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
+import info.ginpei.notes.BR;
 import info.ginpei.notes.R;
+import info.ginpei.notes.databinding.ActivityNoteShowBinding;
 import info.ginpei.notes.models.Note;
 import io.realm.Realm;
 
@@ -13,6 +17,7 @@ public class NoteShowActivity extends AppCompatActivity {
 
     private Realm realm;
     private Note note;
+    private ViewModel vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +28,13 @@ public class NoteShowActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_note_show);
 
-        Toast.makeText(this, note.getComment(), Toast.LENGTH_SHORT).show();
+        vm = new ViewModel();
+        vm.setComment(note.getComment());
+
+        setContentView(R.layout.activity_note_edit);
+
+        ActivityNoteShowBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_note_show);
+        binding.setVm(vm);
     }
 
     private void restoreNote() {
@@ -34,5 +45,22 @@ public class NoteShowActivity extends AppCompatActivity {
         } else {
             note = Note.find(realm, noteId);
         }
+    }
+
+    public class ViewModel extends BaseObservable {
+
+        public String comment = "";
+
+        @Bindable
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+            notifyPropertyChanged(BR.comment);
+        }
+
+        private String locationName = "";
     }
 }
