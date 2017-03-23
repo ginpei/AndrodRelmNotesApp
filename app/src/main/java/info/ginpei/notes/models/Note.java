@@ -126,9 +126,11 @@ public class Note extends RealmObject {
 
     public void delete(Realm realm) {
         realm.beginTransaction();
-        String path = getPhotoFilePath();
+        String photoFilePath = getPhotoFilePath();
+        String photoThumbFilePath = getPhotoThumbFilePath();
         deleteFromRealm();
-        deleteFiles(path);
+        deleteFiles(photoFilePath);
+        deleteFiles(photoThumbFilePath);
         realm.commitTransaction();
     }
 
