@@ -1,4 +1,5 @@
 <resources>
     <dimen name="base_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="row_home_notes_image_width">50dp</dimen>
 </resources>

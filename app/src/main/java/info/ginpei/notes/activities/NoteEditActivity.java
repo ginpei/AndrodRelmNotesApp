@@ -171,8 +171,7 @@ public class NoteEditActivity extends AppCompatActivity {
     }
 
     private void createPhotoThumbnail(@NonNull String originalPath) {
-        final int PHOTO_MAX_WIDTH = 50;
-        final int PHOTO_MAX_HEIGHT = 50;
+        final float PHOTO_MAX_WIDTH = getResources().getDimension(R.dimen.row_home_notes_image_width);
 
         String path = originalPath + ".thumb.jpg";
 
@@ -182,7 +181,7 @@ public class NoteEditActivity extends AppCompatActivity {
         BitmapFactory.decodeFile(originalPath, options);  // update options by original photo
         options.inJustDecodeBounds = false;
 
-        options.inSampleSize = Math.min(options.outWidth / PHOTO_MAX_WIDTH, options.outHeight / PHOTO_MAX_HEIGHT);
+        options.inSampleSize = (int) (options.outWidth / PHOTO_MAX_WIDTH);
 
         Bitmap bitmap = BitmapFactory.decodeFile(originalPath, options);
 
