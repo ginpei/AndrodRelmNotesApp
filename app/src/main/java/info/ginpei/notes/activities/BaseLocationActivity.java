@@ -19,6 +19,26 @@ public class BaseLocationActivity extends AppCompatActivity {
     public static final String TAG = "G#BaseLocationActivity";
     protected LocationManager locationManager;
     private LocationListener listener;
+    private boolean locationCheckEnabled = true;
+
+    // vvvvvvvv
+
+
+    public boolean isLocationCheckEnabled() {
+        return locationCheckEnabled;
+    }
+
+    public void setLocationCheckEnabled(boolean locationCheckEnabled) {
+        this.locationCheckEnabled = locationCheckEnabled;
+
+        if (locationCheckEnabled) {
+            startListeningLocation();
+        } else {
+            stopListeningLocation();
+        }
+    }
+
+    // ^^^^^^^^
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +77,10 @@ public class BaseLocationActivity extends AppCompatActivity {
     }
 
     private void startListeningLocation() {
+        if (!isLocationCheckEnabled()) {
+            return;
+        }
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission();
             return;

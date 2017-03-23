@@ -101,6 +101,7 @@
                     android:drawableLeft="@drawable/ic_location_on_black_24dp"
                     android:drawablePadding="10sp"
                     android:drawableStart="@drawable/ic_location_on_black_24dp"
+                    android:onCheckedChanged="@{vm.toggleLocation_checkedChanged}"
                     android:text="Get Location" />
 
                 <info.ginpei.notes.views.GoogleMapImageView

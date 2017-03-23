@@ -266,5 +266,10 @@ public class NoteEditActivity extends BaseLocationActivity {
         public void takePhoto_click(View view) {
             takePhoto();
         }
+
+        public void toggleLocation_checkedChanged(View view, boolean checked) {
+            setLocationEnabled(checked);
+            setLocationCheckEnabled(checked);
+        }
     }
 }
