@@ -62,6 +62,8 @@ public class BaseLocationActivity extends AppCompatActivity {
             return;
         }
 
+        stopListeningLocation();
+
         long minTime = 0;
         float minDistance = 1;
         listener = getLocationListener();
