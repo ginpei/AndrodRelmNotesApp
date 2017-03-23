@@ -30,13 +30,13 @@ public class BaseLocationActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        startListening();
+        startListeningLocation();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        stopListening();
+        stopListeningLocation();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BaseLocationActivity extends AppCompatActivity {
             case REQUEST_LOCATION:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // call again so that getting location should success now
-                    startListening();
+                    startListeningLocation();
                 } else {
                     onDeniedLocationPermission();
                 }
@@ -56,9 +56,9 @@ public class BaseLocationActivity extends AppCompatActivity {
         }
     }
 
-    private void startListening() {
+    private void startListeningLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
+            requestLocationPermission();
             return;
         }
 
@@ -81,7 +81,7 @@ public class BaseLocationActivity extends AppCompatActivity {
         );
     }
 
-    private void requestPermission() {
+    private void requestLocationPermission() {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
             }
@@ -109,7 +109,7 @@ public class BaseLocationActivity extends AppCompatActivity {
         };
     }
 
-    private void stopListening() {
+    private void stopListeningLocation() {
         if (locationManager != null && listener != null) {
             locationManager.removeUpdates(listener);
         }
