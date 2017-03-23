@@ -48,7 +48,6 @@ public class NoteEditActivity extends BaseLocationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         realm = Realm.getDefaultInstance();
-        setContentView(R.layout.activity_note_edit);
 
         restoreNote();
 
@@ -67,6 +66,7 @@ public class NoteEditActivity extends BaseLocationActivity {
 
         vm.setLocationEnabled(isLocationPermissionGranted());
 
+        setContentView(R.layout.activity_note_edit);
         mapImageView = (GoogleMapImageView) findViewById(R.id.image_map);
     }
 
