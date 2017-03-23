@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 import info.ginpei.notes.R;
 import info.ginpei.notes.models.Note;
+import info.ginpei.notes.utils.NiceDateFormat;
 import io.realm.Realm;
 
 public class HomeActivity extends AppCompatActivity {
@@ -174,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             Note note = notes.get(position);
             String title = note.getComment();
-            String body = note.getCreatedAt().toString();
+            String body = NiceDateFormat.format(note.getCreatedAt());
             String path = note.getPhotoThumbFilePath();
 
             View view = super.getView(position, convertView, parent);
