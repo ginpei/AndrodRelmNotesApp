@@ -211,6 +211,11 @@ public class NoteEditActivity extends AppCompatActivity {
 
     public class ViewModel extends BaseObservable {
 
+        @Bindable
+        public boolean isNewNote() {
+            return note.getId() == 0;
+        }
+
         public String comment = "";
 
         @Bindable

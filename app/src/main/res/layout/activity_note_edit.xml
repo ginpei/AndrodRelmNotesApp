@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="info.ginpei.notes.activities.NoteEditActivity.ViewModel" />
@@ -30,7 +32,8 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:onClick="@{vm.save_click}"
-                    android:text="Save" />
+                    android:text="Save"
+                    android:visibility="@{vm.isNewNote ? View.VISIBLE : View.GONE}" />
 
                 <Button
                     android:layout_width="wrap_content"
