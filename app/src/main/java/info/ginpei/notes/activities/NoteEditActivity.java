@@ -7,6 +7,8 @@ import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import info.ginpei.notes.BR;
 import info.ginpei.notes.R;
@@ -122,6 +126,43 @@ public class NoteEditActivity extends BaseLocationActivity {
         mapImageView.setLocation(this, location);
 
         note.setLocation(realm, location);
+        note.setLocationName(realm, buildLocationName(location));
+
+        Log.d(TAG, "onLocationChanged: " + note.getLocationName());  // TODO remove me
+    }
+
+    @NonNull
+    private String buildLocationName(Location location) {
+        Geocoder geocoder = new Geocoder(this);
+
+        List<Address> addresses = null;
+        int maxResults = 5;
+        try {
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), maxResults);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String locality = null;
+        String subLocality = null;
+        if (addresses != null) {
+            for (Address address : addresses) {
+                locality = address.getLocality();
+                subLocality = address.getSubLocality();
+                if (locality != null && subLocality != null) {
+                    break;
+                }
+            }
+        }
+
+        String locationName;
+        if (locality != null && subLocality != null) {
+            locationName = subLocality + ", " + locality;
+        } else {
+            locationName = "";
+        }
+
+        return locationName;
     }
 
     private void restoreNote() {

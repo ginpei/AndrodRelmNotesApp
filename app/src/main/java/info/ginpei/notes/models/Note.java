@@ -36,6 +36,9 @@ public class Note extends RealmObject {
 
     private double longitude = -1;
 
+    @NonNull
+    private String locationName = "";
+
     // vvvvvvvv
 
     public long getId() {
@@ -123,7 +126,22 @@ public class Note extends RealmObject {
         this.longitude = longitude;
     }
 
-    // ^^^^^^^^
+    @NonNull
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(@NonNull String locationName) {
+        this.locationName = locationName;
+    }
+
+    public void setLocationName(@NonNull Realm realm, @NonNull String locationName) {
+        realm.beginTransaction();
+        setLocationName(locationName);
+        setUpdatedAt();
+        realm.commitTransaction();
+    }
+// ^^^^^^^^
 
 
     public Note() {
