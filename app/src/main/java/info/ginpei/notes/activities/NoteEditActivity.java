@@ -154,7 +154,7 @@ public class NoteEditActivity extends AppCompatActivity {
     private void setPhoto(String path) {
         Bitmap bitmap = BitmapFactory.decodeFile(path);
 
-        ImageView imageView = (ImageView) findViewById(R.id.image_pohto);
+        ImageView imageView = (ImageView) findViewById(R.id.image_photo);
         imageView.setImageBitmap(bitmap);
 
         note.setPhotoFilePath(path);

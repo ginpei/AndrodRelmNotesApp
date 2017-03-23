@@ -34,7 +34,7 @@
             android:text="Take a Photo" />
 
         <ImageView
-            android:id="@+id/image_pohto"
+            android:id="@+id/image_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

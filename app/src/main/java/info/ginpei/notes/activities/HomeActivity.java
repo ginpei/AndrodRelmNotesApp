@@ -181,7 +181,7 @@ public class HomeActivity extends AppCompatActivity {
             ((TextView) view.findViewById(android.R.id.text1)).setText(title);
             ((TextView) view.findViewById(android.R.id.text2)).setText(body);
 
-            ImageView imageView = (ImageView) view.findViewById(R.id.image_pohto);
+            ImageView imageView = (ImageView) view.findViewById(R.id.image_photo);
             if (path != null) {
                 Bitmap bitmap = BitmapFactory.decodeFile(path);
                 imageView.setImageBitmap(bitmap);
