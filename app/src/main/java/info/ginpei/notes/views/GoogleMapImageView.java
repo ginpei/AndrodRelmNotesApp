@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 import android.util.AttributeSet;
@@ -14,6 +17,8 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import info.ginpei.notes.R;
 
 public class GoogleMapImageView extends android.support.v7.widget.AppCompatImageView {
 
@@ -47,7 +52,19 @@ public class GoogleMapImageView extends android.support.v7.widget.AppCompatImage
             Bitmap bitmap = loadBitmap(url);
 
             activity.runOnUiThread(() -> {
-                setImageBitmap(bitmap);
+                if (bitmap != null) {
+                    setImageBitmap(bitmap);
+                } else {
+                    // TODO remove me
+                    Drawable drawable;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        drawable = getResources().getDrawable(R.drawable.dummy_map, null);
+                    } else {
+                        drawable = getResources().getDrawable(R.drawable.dummy_map);
+                    }
+                    Bitmap bitmapDummy = ((BitmapDrawable) drawable).getBitmap();
+                    setImageBitmap(bitmapDummy);
+                }
             });
         }).start();
     }
