@@ -111,7 +111,8 @@ public class NoteEditActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
-                setPhoto();
+                setPhoto(photoFileAbsolutePath);
+                photoFileAbsolutePath = null;
             }
         }
     }
@@ -150,11 +151,13 @@ public class NoteEditActivity extends AppCompatActivity {
         return new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
     }
 
-    private void setPhoto() {
-        Bitmap bitmap = BitmapFactory.decodeFile(photoFileAbsolutePath);
+    private void setPhoto(String path) {
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
 
         ImageView imageView = (ImageView) findViewById(R.id.image_pohto);
         imageView.setImageBitmap(bitmap);
+
+        note.setPhotoFilePath(path);
     }
 
     private void saveAndFinish() {

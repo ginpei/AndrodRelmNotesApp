@@ -24,6 +24,9 @@ public class Note extends RealmObject {
     @NonNull
     private String comment = "";
 
+    @Nullable
+    private String photoFilePath = null;
+
     // vvvvvvvv
 
     public long getId() {
@@ -66,6 +69,22 @@ public class Note extends RealmObject {
     public void setComment(@NonNull Realm realm, @NonNull String comment) {
         realm.beginTransaction();
         setComment(comment);
+        setUpdatedAt();
+        realm.commitTransaction();
+    }
+
+    @Nullable
+    public String getPhotoFilePath() {
+        return photoFilePath;
+    }
+
+    public void setPhotoFilePath(@Nullable String photoFilePath) {
+        this.photoFilePath = photoFilePath;
+    }
+
+    public void setPhotoFilePath(Realm realm, @Nullable String photoFilePath) {
+        realm.beginTransaction();
+        setPhotoFilePath(photoFilePath);
         setUpdatedAt();
         realm.commitTransaction();
     }
