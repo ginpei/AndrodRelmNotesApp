@@ -197,6 +197,9 @@ public class HomeActivity extends AppCompatActivity {
                 imageView.setVisibility(View.GONE);
             }
 
+            ImageView locationImageView = (ImageView) view.findViewById(R.id.image_location);
+            locationImageView.setVisibility(note.getLocationName().isEmpty() ? View.INVISIBLE : View.VISIBLE);
+
             return view;
         }
     }
