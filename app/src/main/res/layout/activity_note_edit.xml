@@ -27,5 +27,16 @@
             android:onTextChanged="@{vm.comment_textChanged}"
             android:text="@{vm.comment}" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{vm.takePhoto_click}"
+            android:text="Take a Photo" />
+
+        <ImageView
+            android:id="@+id/image_pohto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </layout>

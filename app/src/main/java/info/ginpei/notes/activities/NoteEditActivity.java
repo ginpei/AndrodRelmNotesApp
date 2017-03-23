@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import info.ginpei.notes.BR;
@@ -19,6 +23,7 @@ import io.realm.Realm;
 public class NoteEditActivity extends AppCompatActivity {
 
     public static final String TAG = "G#NoteEditActivity";
+    public static final int REQUEST_TAKE_PHOTO = 1;
     private Realm realm;
     private Note note;
     public ViewModel vm;
@@ -91,6 +96,28 @@ public class NoteEditActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_TAKE_PHOTO) {
+            if (resultCode == RESULT_OK) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                setPhoto(bitmap);
+            }
+        }
+    }
+
+    private void takePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+        }
+    }
+
+    private void setPhoto(Bitmap bitmap) {
+        ImageView imageView = (ImageView) findViewById(R.id.image_pohto);
+        imageView.setImageBitmap(bitmap);
+    }
+
     private void saveAndFinish() {
         note.save(realm);
         finish();
@@ -113,6 +140,10 @@ public class NoteEditActivity extends AppCompatActivity {
         public void comment_textChanged(CharSequence charSequence, int i, int i1, int i2) {
             String comment = charSequence.toString();
             note.setComment(realm, comment);
+        }
+
+        public void takePhoto_click(View view) {
+            takePhoto();
         }
     }
 }
