@@ -17,10 +17,21 @@
         android:layout_height="match_parent"
         tools:context="info.ginpei.notes.activities.NoteShowActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.comment}" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/base_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1000dp"
+                    android:text="@{vm.comment}" />
+            </LinearLayout>
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 </layout>
