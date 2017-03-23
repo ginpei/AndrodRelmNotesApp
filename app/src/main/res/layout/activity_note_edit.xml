@@ -43,6 +43,13 @@
                     android:drawableLeft="@drawable/ic_add_a_photo_white_24dp"
                     android:onClick="@{vm::takePhoto_click}"
                     android:text="Photo" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_location_on_white_24dp"
+                    android:drawableStart="@drawable/ic_location_on_white_24dp"
+                    android:enabled="false" />
             </LinearLayout>
 
         </android.support.design.widget.AppBarLayout>
