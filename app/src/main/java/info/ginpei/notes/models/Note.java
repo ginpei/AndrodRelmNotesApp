@@ -28,6 +28,9 @@ public class Note extends RealmObject {
     @Nullable
     private String photoFilePath = null;
 
+    @Nullable
+    private String photoThumbFilePath = null;
+
     // vvvvvvvv
 
     public long getId() {
@@ -90,6 +93,14 @@ public class Note extends RealmObject {
         realm.commitTransaction();
     }
 
+    @Nullable
+    public String getPhotoThumbFilePath() {
+        return photoThumbFilePath;
+    }
+
+    public void setPhotoThumbFilePath(@Nullable String photoThumbFilePath) {
+        this.photoThumbFilePath = photoThumbFilePath;
+    }
     // ^^^^^^^^
 
 

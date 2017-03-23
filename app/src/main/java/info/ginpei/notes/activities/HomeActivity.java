@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
             Note note = notes.get(position);
             String title = note.getComment();
             String body = note.getCreatedAt().toString();
-            String path = note.getPhotoFilePath();
+            String path = note.getPhotoThumbFilePath();
 
             View view = super.getView(position, convertView, parent);
             ((TextView) view.findViewById(android.R.id.text1)).setText(title);

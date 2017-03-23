@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -159,11 +161,53 @@ public class NoteEditActivity extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
 
         note.setPhotoFilePath(path);
+
+        createPhotoThumbnail(path);
     }
 
     private void saveAndFinish() {
         note.save(realm);
         finish();
+    }
+
+    private void createPhotoThumbnail(@NonNull String originalPath) {
+        final int PHOTO_MAX_WIDTH = 50;
+        final int PHOTO_MAX_HEIGHT = 50;
+
+        String path = originalPath + ".thumb.jpg";
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(originalPath, options);  // update options by original photo
+        options.inJustDecodeBounds = false;
+
+        options.inSampleSize = Math.min(options.outWidth / PHOTO_MAX_WIDTH, options.outHeight / PHOTO_MAX_HEIGHT);
+
+        Bitmap bitmap = BitmapFactory.decodeFile(originalPath, options);
+
+        FileOutputStream out = null;
+        boolean failed = false;
+        try {
+            out = new FileOutputStream(path);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            failed = true;
+        }finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    failed = true;
+                }
+            }
+        }
+
+        if (!failed) {
+            note.setPhotoThumbFilePath(path);
+        }
     }
 
     public class ViewModel extends BaseObservable {
