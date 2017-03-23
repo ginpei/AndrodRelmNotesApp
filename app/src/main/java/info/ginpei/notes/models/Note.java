@@ -93,6 +93,12 @@ public class Note extends RealmObject {
         realm.commitTransaction();
     }
 
+    public void delete(Realm realm) {
+        realm.beginTransaction();
+        deleteFromRealm();
+        realm.commitTransaction();
+    }
+
     private static long findLastId(Realm realm) {
         RealmQuery<Note> query = realm.where(Note.class);
         if (query.count() > 0) {

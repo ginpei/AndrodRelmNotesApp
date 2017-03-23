@@ -150,7 +150,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void deleteNote(Note note) {
-        Toast.makeText(this, "delete #" + note.getId(), Toast.LENGTH_SHORT).show();  // TODO
+        note.delete(realm);
+        reloadNotes();
     }
 
     class NoteArrayAdapter extends ArrayAdapter<Note> {
