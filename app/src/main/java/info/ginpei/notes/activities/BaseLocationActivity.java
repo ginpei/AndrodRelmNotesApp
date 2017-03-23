@@ -116,6 +116,7 @@ public class BaseLocationActivity extends AppCompatActivity {
     private void stopListeningLocation() {
         if (locationManager != null && listener != null) {
             locationManager.removeUpdates(listener);
+            listener = null;
         }
     }
 
