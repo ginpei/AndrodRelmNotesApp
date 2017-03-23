@@ -175,8 +175,14 @@ public class HomeActivity extends AppCompatActivity {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             Note note = notes.get(position);
             String title = note.getComment();
-            String body = NiceDateFormat.format(note.getCreatedAt());
             String path = note.getPhotoThumbFilePath();
+
+            String body;
+            if (note.getLocationName().isEmpty()) {
+                body = NiceDateFormat.format(note.getCreatedAt());
+            } else {
+                body = NiceDateFormat.format(note.getCreatedAt()) + " at " + note.getLocationName();
+            }
 
             View view = super.getView(position, convertView, parent);
             ((TextView) view.findViewById(android.R.id.text1)).setText(title);
