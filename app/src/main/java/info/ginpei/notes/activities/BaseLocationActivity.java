@@ -17,7 +17,7 @@ public class BaseLocationActivity extends AppCompatActivity {
 
     private static final int REQUEST_LOCATION = 1;
     public static final String TAG = "G#BaseLocationActivity";
-    private LocationManager locationManager;
+    protected LocationManager locationManager;
     private LocationListener listener;
 
     @Override
@@ -113,6 +113,10 @@ public class BaseLocationActivity extends AppCompatActivity {
         if (locationManager != null && listener != null) {
             locationManager.removeUpdates(listener);
         }
+    }
+
+    protected boolean isLocationPermissionGranted() {
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED;
     }
 
     private void onDeniedLocationPermission() {

@@ -61,6 +61,8 @@ public class NoteEditActivity extends BaseLocationActivity {
 
         ActivityNoteEditBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_note_edit);
         binding.setVm(vm);
+
+        vm.setLocationEnabled(isLocationPermissionGranted());
     }
 
     private void restoreNote() {
@@ -225,6 +227,18 @@ public class NoteEditActivity extends BaseLocationActivity {
         public void setComment(String comment) {
             this.comment = comment;
             notifyPropertyChanged(BR.comment);
+        }
+
+        private boolean locationEnabled = false;
+
+        @Bindable
+        public boolean isLocationEnabled() {
+            return locationEnabled;
+        }
+
+        public void setLocationEnabled(boolean locationEnabled) {
+            this.locationEnabled = locationEnabled;
+            notifyPropertyChanged(BR.locationEnabled);
         }
 
         public void comment_textChanged(CharSequence charSequence, int i, int i1, int i2) {
