@@ -102,6 +102,11 @@
                     android:drawablePadding="10sp"
                     android:drawableStart="@drawable/ic_location_on_black_24dp"
                     android:text="Get Location" />
+
+                <info.ginpei.notes.views.GoogleMapImageView
+                    android:id="@+id/image_map"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp" />
             </LinearLayout>
         </ScrollView>
 

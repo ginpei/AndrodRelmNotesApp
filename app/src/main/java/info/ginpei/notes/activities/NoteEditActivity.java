@@ -7,6 +7,7 @@ import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,6 +31,7 @@ import info.ginpei.notes.BR;
 import info.ginpei.notes.R;
 import info.ginpei.notes.databinding.ActivityNoteEditBinding;
 import info.ginpei.notes.models.Note;
+import info.ginpei.notes.views.GoogleMapImageView;
 import io.realm.Realm;
 
 public class NoteEditActivity extends BaseLocationActivity {
@@ -40,6 +42,7 @@ public class NoteEditActivity extends BaseLocationActivity {
     private Note note;
     public ViewModel vm;
     private String photoFileAbsolutePath;
+    private GoogleMapImageView mapImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class NoteEditActivity extends BaseLocationActivity {
         binding.setVm(vm);
 
         vm.setLocationEnabled(isLocationPermissionGranted());
+
+        mapImageView = (GoogleMapImageView) findViewById(R.id.image_map);
     }
 
     private void restoreNote() {
@@ -119,6 +124,13 @@ public class NoteEditActivity extends BaseLocationActivity {
                 photoFileAbsolutePath = null;
             }
         }
+    }
+
+    @Override
+    protected void onLocationChanged(Location location) {
+        super.onLocationChanged(location);
+
+        mapImageView.setLocation(this, location);
     }
 
     private void takePhoto() {
