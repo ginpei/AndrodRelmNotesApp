@@ -18,8 +18,10 @@
         tools:context="info.ginpei.notes.activities.NoteShowActivity">
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="368dp"
+            android:layout_height="495dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,11 +38,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.comment}" />
+                    android:text="Comment"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.comment}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="@dimen/base_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Photo"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -54,7 +69,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.locationName}" />
+                    android:text="Location"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.locationName}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
                 <info.ginpei.notes.views.GoogleMapImageView
                     android:id="@+id/image_map"
