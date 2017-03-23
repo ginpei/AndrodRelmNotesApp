@@ -136,11 +136,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createNewNote() {
-        Note note = new Note();
-        note.setComment("New note");
-        note.save(realm);
-
-        reloadNotes();
+        startActivity(new Intent(this, NoteEditActivity.class));
     }
 
     private void showNote(Note note) {
