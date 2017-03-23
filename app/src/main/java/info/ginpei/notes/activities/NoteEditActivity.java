@@ -120,6 +120,8 @@ public class NoteEditActivity extends BaseLocationActivity {
         super.onLocationChanged(location);
 
         mapImageView.setLocation(this, location);
+
+        note.setLocation(realm, location);
     }
 
     private void restoreNote() {

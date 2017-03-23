@@ -1,5 +1,6 @@
 package info.ginpei.notes.models;
 
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -30,6 +31,10 @@ public class Note extends RealmObject {
 
     @Nullable
     private String photoThumbFilePath = null;
+
+    private double latitude = -1;
+
+    private double longitude = -1;
 
     // vvvvvvvv
 
@@ -101,6 +106,23 @@ public class Note extends RealmObject {
     public void setPhotoThumbFilePath(@Nullable String photoThumbFilePath) {
         this.photoThumbFilePath = photoThumbFilePath;
     }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     // ^^^^^^^^
 
 
@@ -158,5 +180,17 @@ public class Note extends RealmObject {
     @Nullable
     public static Note find(Realm realm, long noteId) {
         return realm.where(Note.class).equalTo("id", noteId).findFirst();
+    }
+
+    public void setLocation(Location location) {
+        setLatitude(location.getLatitude());
+        setLongitude(location.getLongitude());
+    }
+
+    public void setLocation(Realm realm, Location location) {
+        realm.beginTransaction();
+        setLocation(location);
+        setUpdatedAt();
+        realm.commitTransaction();
     }
 }
