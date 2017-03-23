@@ -5,12 +5,14 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import info.ginpei.notes.BR;
 import info.ginpei.notes.R;
 import info.ginpei.notes.databinding.ActivityNoteShowBinding;
 import info.ginpei.notes.models.Note;
+import info.ginpei.notes.utils.NiceDateFormat;
 import io.realm.Realm;
 
 public class NoteShowActivity extends AppCompatActivity {
@@ -29,7 +31,10 @@ public class NoteShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note_show);
 
         vm = new ViewModel();
+        vm.setDateText(NiceDateFormat.format(note.getCreatedAt()));
         vm.setComment(note.getComment());
+        vm.setPhotoPath(note.getPhotoFilePath());
+        vm.setLocationName(note.getLocationName());
 
         setContentView(R.layout.activity_note_edit);
 
@@ -49,6 +54,20 @@ public class NoteShowActivity extends AppCompatActivity {
 
     public class ViewModel extends BaseObservable {
 
+        @NonNull
+        private String dateText = "";
+
+        @Bindable
+        @NonNull
+        public String getDateText() {
+            return dateText;
+        }
+
+        public void setDateText(@NonNull String dateText) {
+            this.dateText = dateText;
+            notifyPropertyChanged(BR.dateText);
+        }
+
         public String comment = "";
 
         @Bindable
@@ -61,6 +80,32 @@ public class NoteShowActivity extends AppCompatActivity {
             notifyPropertyChanged(BR.comment);
         }
 
+        @NonNull
+        private String photoPath = "";
+
+        @Bindable
+        @NonNull
+        public String getPhotoPath() {
+            return photoPath;
+        }
+
+        public void setPhotoPath(@NonNull String photoPath) {
+            this.photoPath = photoPath;
+            notifyPropertyChanged(BR.photoPath);
+        }
+
+        @NonNull
         private String locationName = "";
+
+        @Bindable
+        @NonNull
+        public String getLocationName() {
+            return locationName;
+        }
+
+        public void setLocationName(@NonNull String locationName) {
+            this.locationName = locationName;
+            notifyPropertyChanged(BR.locationName);
+        }
     }
 }

@@ -29,8 +29,36 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="1000dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@{vm.dateText}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@{vm.comment}" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/base_margin" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@{vm.photoPath}" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/base_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.locationName}" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/base_margin" />
             </LinearLayout>
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
