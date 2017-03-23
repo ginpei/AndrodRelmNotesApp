@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -151,7 +150,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showNote(Note note) {
-        Toast.makeText(this, "show #" + note.getId(), Toast.LENGTH_SHORT).show();  // TODO
+        Intent intent = new Intent(this, NoteShowActivity.class);
+        intent.putExtra("noteId", note.getId());
+        startActivity(intent);
     }
 
     private void editNote(Note note) {
