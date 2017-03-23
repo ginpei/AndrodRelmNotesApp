@@ -31,6 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_check_white_24dp"
                     android:onClick="@{vm.save_click}"
                     android:text="Save"
                     android:visibility="@{vm.isNewNote ? View.VISIBLE : View.GONE}" />
@@ -39,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_add_a_photo_white_24dp"
                     android:onClick="@{vm::takePhoto_click}"
                     android:text="Photo" />
             </LinearLayout>
