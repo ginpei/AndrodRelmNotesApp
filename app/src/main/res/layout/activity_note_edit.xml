@@ -104,6 +104,11 @@
                     android:onCheckedChanged="@{vm.toggleLocation_checkedChanged}"
                     android:text="Get Location" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.locationName}" />
+
                 <info.ginpei.notes.views.GoogleMapImageView
                     android:id="@+id/image_map"
                     android:layout_width="300dp"

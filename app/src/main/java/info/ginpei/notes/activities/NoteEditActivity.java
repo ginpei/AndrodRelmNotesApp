@@ -16,7 +16,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -127,8 +126,7 @@ public class NoteEditActivity extends BaseLocationActivity {
 
         note.setLocation(realm, location);
         note.setLocationName(realm, buildLocationName(location));
-
-        Log.d(TAG, "onLocationChanged: " + note.getLocationName());  // TODO remove me
+        vm.setLocationName(note.getLocationName());
     }
 
     @NonNull
@@ -281,6 +279,18 @@ public class NoteEditActivity extends BaseLocationActivity {
         public void setComment(String comment) {
             this.comment = comment;
             notifyPropertyChanged(BR.comment);
+        }
+
+        private String locationName = "";
+
+        @Bindable
+        public String getLocationName() {
+            return locationName;
+        }
+
+        public void setLocationName(String locationName) {
+            this.locationName = locationName;
+            notifyPropertyChanged(BR.locationName);
         }
 
         private boolean locationEnabled = false;
