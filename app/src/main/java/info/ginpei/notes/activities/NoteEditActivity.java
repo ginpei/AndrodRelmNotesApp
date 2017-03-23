@@ -13,7 +13,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +32,7 @@ import info.ginpei.notes.databinding.ActivityNoteEditBinding;
 import info.ginpei.notes.models.Note;
 import io.realm.Realm;
 
-public class NoteEditActivity extends AppCompatActivity {
+public class NoteEditActivity extends BaseLocationActivity {
 
     public static final String TAG = "G#NoteEditActivity";
     public static final int REQUEST_TAKE_PHOTO = 1;
