@@ -13,6 +13,7 @@ import info.ginpei.notes.R;
 import info.ginpei.notes.databinding.ActivityNoteShowBinding;
 import info.ginpei.notes.models.Note;
 import info.ginpei.notes.utils.NiceDateFormat;
+import info.ginpei.notes.views.GoogleMapImageView;
 import io.realm.Realm;
 
 public class NoteShowActivity extends AppCompatActivity {
@@ -40,6 +41,9 @@ public class NoteShowActivity extends AppCompatActivity {
 
         ActivityNoteShowBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_note_show);
         binding.setVm(vm);
+
+        GoogleMapImageView mapImageView = (GoogleMapImageView) findViewById(R.id.image_map);
+        mapImageView.setLocation(this, note.getLatitude(), note.getLongitude());
     }
 
     private void restoreNote() {

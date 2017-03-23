@@ -33,10 +33,7 @@ public class GoogleMapImageView extends android.support.v7.widget.AppCompatImage
         super(context, attrs);
     }
 
-    public void setLocation(Activity activity, Location location) {
-        double newLatitude = location.getLatitude();
-        double newLongitude = location.getLongitude();
-
+    public void setLocation(Activity activity, double newLatitude, double newLongitude) {
         double diff = Math.max(Math.abs(newLatitude - latitude), Math.abs(newLongitude - longitude));
         boolean isNew = latitude < 0;
         if (!isNew && diff < THRESHOLD) {
@@ -67,6 +64,10 @@ public class GoogleMapImageView extends android.support.v7.widget.AppCompatImage
                 }
             });
         }).start();
+    }
+
+    public void setLocation(Activity activity, Location location) {
+        setLocation(activity, location.getLatitude(), location.getLongitude());
     }
 
     @SuppressLint("DefaultLocale")

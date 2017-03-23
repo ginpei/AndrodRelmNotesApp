@@ -56,6 +56,11 @@
                     android:layout_height="wrap_content"
                     android:text="@{vm.locationName}" />
 
+                <info.ginpei.notes.views.GoogleMapImageView
+                    android:id="@+id/image_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="@dimen/base_margin" />
