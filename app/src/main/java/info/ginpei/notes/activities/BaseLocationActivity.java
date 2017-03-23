@@ -145,7 +145,7 @@ public class BaseLocationActivity extends AppCompatActivity {
     }
 
     protected boolean isLocationPermissionGranted() {
-        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED;
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void onDeniedLocationPermission() {
