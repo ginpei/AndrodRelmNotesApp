@@ -8,35 +8,50 @@
             type="info.ginpei.notes.activities.NoteEditActivity.ViewModel" />
     </data>
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/base_margin"
-        android:orientation="vertical"
         tools:context="info.ginpei.notes.activities.NoteEditActivity">
 
-        <TextView
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comment" />
+            android:gravity="end"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <EditText
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="@{vm.takePhoto_click}"
+                android:text="Photo" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onTextChanged="@{vm.comment_textChanged}"
-            android:text="@{vm.comment}" />
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/base_margin"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{vm.takePhoto_click}"
-            android:text="Take a Photo" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comment" />
 
-        <ImageView
-            android:id="@+id/image_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onTextChanged="@{vm.comment_textChanged}"
+                android:text="@{vm.comment}" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/image_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 </layout>
