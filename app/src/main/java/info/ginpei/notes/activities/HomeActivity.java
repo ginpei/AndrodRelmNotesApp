@@ -163,7 +163,7 @@ public class HomeActivity extends AppCompatActivity {
 
     class NoteArrayAdapter extends ArrayAdapter<Note> {
         public NoteArrayAdapter(@NonNull Context context, ArrayList<Note> notes) {
-            super(context, android.R.layout.simple_list_item_2, android.R.id.text1, notes);
+            super(context, R.layout.row_home_notes, android.R.id.text1, notes);
         }
 
         @NonNull
