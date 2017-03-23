@@ -129,7 +129,6 @@ public class NoteEditActivity extends BaseLocationActivity {
             note = new Note();
         } else {
             note = Note.find(realm, noteId);
-
         }
     }
 
