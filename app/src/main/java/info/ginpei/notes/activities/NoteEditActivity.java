@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -151,7 +152,7 @@ public class NoteEditActivity extends AppCompatActivity {
         return new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
     }
 
-    private void setPhoto(String path) {
+    private void setPhoto(@NonNull String path) {
         Bitmap bitmap = BitmapFactory.decodeFile(path);
 
         ImageView imageView = (ImageView) findViewById(R.id.image_photo);
