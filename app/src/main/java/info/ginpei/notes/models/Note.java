@@ -3,6 +3,7 @@ package info.ginpei.notes.models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -114,8 +115,16 @@ public class Note extends RealmObject {
 
     public void delete(Realm realm) {
         realm.beginTransaction();
+        String path = getPhotoFilePath();
         deleteFromRealm();
+        deleteFiles(path);
         realm.commitTransaction();
+    }
+
+    private void deleteFiles(String path) {
+        if (path != null) {
+            new File(path).delete();
+        }
     }
 
     private static long findLastId(Realm realm) {
