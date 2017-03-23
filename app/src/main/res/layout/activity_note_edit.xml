@@ -20,12 +20,25 @@
             android:gravity="end"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <Button
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:onClick="@{vm::takePhoto_click}"
-                android:text="Photo" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{vm.save_click}"
+                    android:text="Save" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{vm::takePhoto_click}"
+                    android:text="Photo" />
+            </LinearLayout>
 
         </android.support.design.widget.AppBarLayout>
 

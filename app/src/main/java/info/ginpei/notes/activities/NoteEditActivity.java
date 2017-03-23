@@ -193,7 +193,7 @@ public class NoteEditActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             failed = true;
-        }finally {
+        } finally {
             if (out != null) {
                 try {
                     out.close();
@@ -226,6 +226,10 @@ public class NoteEditActivity extends AppCompatActivity {
         public void comment_textChanged(CharSequence charSequence, int i, int i1, int i2) {
             String comment = charSequence.toString();
             note.setComment(realm, comment);
+        }
+
+        public void save_click(View view) {
+            saveAndFinish();
         }
 
         public void takePhoto_click(View view) {
