@@ -60,12 +60,12 @@ public class NoteEditActivity extends BaseLocationActivity {
 
         vm = new ViewModel();
         vm.setComment(note.getComment());
+        vm.setLocationEnabled(isLocationPermissionGranted());
 
         setContentView(R.layout.activity_note_edit);
+
         ActivityNoteEditBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_note_edit);
         binding.setVm(vm);
-
-        vm.setLocationEnabled(isLocationPermissionGranted());
 
         mapImageView = (GoogleMapImageView) findViewById(R.id.image_map);
     }
