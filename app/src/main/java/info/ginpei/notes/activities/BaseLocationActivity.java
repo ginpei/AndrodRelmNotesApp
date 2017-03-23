@@ -63,7 +63,7 @@ public class BaseLocationActivity extends AppCompatActivity {
         }
 
         long minTime = 0;
-        float minDistance = 0;
+        float minDistance = 1;
         listener = getLocationListener();
 
         locationManager.requestLocationUpdates(
