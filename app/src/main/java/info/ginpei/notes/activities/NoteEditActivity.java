@@ -92,7 +92,8 @@ public class NoteEditActivity extends AppCompatActivity {
     }
 
     private void saveAndFinish() {
-        Toast.makeText(this, "SAVE", Toast.LENGTH_SHORT).show();
+        note.save(realm);
+        finish();
     }
 
     public class ViewModel extends BaseObservable {
